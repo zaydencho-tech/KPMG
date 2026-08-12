@@ -1,0 +1,217 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('./assets/PretendardVariable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'KopupDotum';
+    src: url('./assets/KoPubWorld-Dotum-Light.woff2') format('woff2');
+    font-weight: 300;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'KopupDotum';
+    src: url('./assets/KoPubWorld-Dotum-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-display: swap;
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 228 28% 14%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 228 28% 14%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 228 28% 14%;
+
+    --primary: 228 28% 14%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 228 20% 96%;
+    --secondary-foreground: 228 28% 14%;
+
+    --muted: 210 15% 95%;
+    --muted-foreground: 215 14% 45%;
+
+    --accent: 218 100% 28%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 90%;
+    --input: 220 13% 90%;
+    --ring: 218 100% 28%;
+
+    --radius: 0.25rem;
+
+    --hero-overlay: 228 29% 12%;
+    --stats-bg: 228 29% 15%;
+    --section-alt: 228 20% 97%;
+    --section-card: 228 14% 97%;
+    --section-cta: 228 15% 70%;
+    --gold: 36 28% 58%;
+    --gold-foreground: 36 28% 24%;
+
+    /* KPMG Primary Blue — interactive elements (buttons, hover) */
+    --cta: 218 100% 28%;
+    --cta-foreground: 0 0% 100%;
+    --cta-hover: 34 26% 53%;
+
+    --navy: 228 28% 14%;
+    --navy-light: 228 20% 25%;
+
+    /* KPMG Primary palette */
+    --kpmg-blue: 218 100% 28%;
+    --kpmg-blue-medium: 210 100% 36%;
+    --kpmg-blue-light: 200 100% 43%;
+
+    /* KPMG Secondary palette — category indicators */
+    --kpmg-violet: 252 47% 40%;
+    --kpmg-purple: 280 82% 23%;
+    --kpmg-purple-light: 293 58% 30%;
+    --kpmg-green: 179 100% 32%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 207 71% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  img {
+    filter: saturate(0.9);
+  }
+
+  html {
+    font-size: 18px;
+    overflow-x: clip;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    overflow-x: clip;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .font-serif {
+    font-family: 'KopupDotum', 'Pretendard', sans-serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(36 28% 58%), hsl(36 22% 70%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bg-navy {
+    background-color: hsl(var(--navy));
+  }
+
+  .bg-navy-light {
+    background-color: hsl(var(--navy-light));
+  }
+
+  .bg-section-alt {
+    background-color: hsl(var(--section-alt));
+  }
+
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+
+  .border-gold {
+    border-color: hsl(var(--gold));
+  }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-counter {
+  animation: counter 2s ease-out forwards;
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2s ease-in-out infinite;
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-8px); }
+}
+
+.animate-scroll-line {
+  animation: scrollLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollLine {
+  0% { top: -12px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 60px; opacity: 0; }
+}
+
+/* Custom scrollbar for diagram scroll areas - 4px from bottom, 4px height, 8% opacity */
+.diagram-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.diagram-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 4px;
+}
+
+.diagram-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--foreground) / 0.08);
+  border-radius: 2px;
+}
+
+.diagram-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground) / 0.12);
+}
+
+/* Advisory tab progress fill */
+@keyframes advisoryFill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
