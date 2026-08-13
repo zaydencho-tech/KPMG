@@ -2,20 +2,43 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import SectionIcon from "./SectionIcon";
-import professionalImage from "@/assets/professional-wonjungjun.jpg";
-import advisorImage1 from "@/assets/professional-card-advisor-1-v2.png";
-import advisorImage2 from "@/assets/professional-card-advisor-2-v2.png";
+import professionalImage1 from "@/assets/professional-kpmg-01.jpg";
+import professionalImage2 from "@/assets/professional-kpmg-02.jpg";
+import professionalImage3 from "@/assets/professional-kpmg-03.jpg";
+import professionalImage4 from "@/assets/professional-kpmg-04.jpg";
+import professionalImage5 from "@/assets/professional-kpmg-05.jpg";
+import seoMuseongImage from "@/assets/professional-seo-museong-card.jpg";
+import simJunboImage from "@/assets/professional-sim-junbo-card.jpg";
+import yangJinhyeokImage from "@/assets/professional-yang-jinhyeok-card.jpg";
+import wonJungjunImage from "@/assets/professional-won-jungjun-card.jpg";
+import leeDongcheolImage from "@/assets/professional-lee-dongcheol-card.jpg";
+import leeJunsangImage from "@/assets/professional-lee-junsang-card.jpg";
+import limChangheeImage from "@/assets/professional-lim-changhee-card.jpg";
+import hongSeokrinImage from "@/assets/professional-hong-seokrin-card.jpg";
 import teamCardBackground from "@/assets/professionals-team-card-bg-bright.png";
 
 const professionals = [
-  { name: "원정준", title: "부대표", tags: ["#매각자문", "#가치평가"], image: professionalImage, position: "object-[12%_center]" },
-  { name: "000", title: "부대표", tags: ["#매각자문", "#기업가치평가"], image: advisorImage1, position: "object-[12%_center]" },
-  { name: "000", title: "부대표", tags: ["#인수자문", "#투자유치"], image: advisorImage2, position: "object-[12%_center]" },
+  { id: "kim-idong", name: "김이동", title: "대표", tags: ["#매각자문", "#DealAdvisory"], image: professionalImage1, position: "object-[14%_center]" },
+  { id: "park-younggeol", name: "박영걸", title: "부대표", tags: ["#매각자문", "#DealAdvisory"], image: professionalImage5, position: "object-[14%_center]" },
+  { id: "min-honggil", name: "민홍길", title: "전무", tags: ["#기업가치평가", "#DealAdvisory"], image: professionalImage2, position: "object-[8%_center]" },
+  { id: "park-juhong", name: "박주홍", title: "전무", tags: ["#인수자문", "#DealAdvisory"], image: professionalImage3, position: "object-[14%_center]" },
+  { id: "park-gyeongsang", name: "박경상", title: "상무", tags: ["#투자유치", "#DealAdvisory"], image: professionalImage4, position: "object-[14%_center]" },
+  { id: "seo-museong", name: "서무성", title: "전무", tags: ["#매각자문", "#DealAdvisory"], image: seoMuseongImage, position: "object-[14%_center]" },
+  { id: "sim-junbo", name: "심준보", title: "상무", tags: ["#기업가치평가", "#DealAdvisory"], image: simJunboImage, position: "object-[14%_center]" },
+  { id: "yang-jinhyeok", name: "양진혁", title: "전무", tags: ["#인수자문", "#DealAdvisory"], image: yangJinhyeokImage, position: "object-[14%_center]" },
+  { id: "wonjungjun", name: "원정준", title: "부대표", tags: ["#매각자문", "#DealAdvisory"], image: wonJungjunImage, position: "object-[14%_center]" },
+  { id: "lee-dongcheol", name: "이동철", title: "상무", tags: ["#기업가치평가", "#DealAdvisory"], image: leeDongcheolImage, position: "object-[14%_center]" },
+  { id: "lee-junsang", name: "이준상", title: "상무", tags: ["#인수자문", "#DealAdvisory"], image: leeJunsangImage, position: "object-[14%_center]" },
+  { id: "lim-changhee", name: "임창희", title: "상무", tags: ["#매각자문", "#DealAdvisory"], image: limChangheeImage, position: "object-[14%_center]" },
+  { id: "hong-seokrin", name: "홍석린", title: "부대표", tags: ["#기업가치평가", "#DealAdvisory"], image: hongSeokrinImage, position: "object-[14%_center]" },
 ];
 
 const ProfessionalsIntro = () => {
   const [startIndex, setStartIndex] = useState(0);
-  const visibleProfessionals = professionals.map((_, index) => professionals[(startIndex + index) % professionals.length]);
+  const visibleProfessionals = Array.from(
+    { length: 3 },
+    (_, index) => professionals[(startIndex + index) % professionals.length],
+  );
 
   const moveCards = (direction: -1 | 1) => {
     setStartIndex((current) => (current + direction + professionals.length) % professionals.length);
@@ -49,7 +72,7 @@ const ProfessionalsIntro = () => {
             {visibleProfessionals.map((professional, index) => (
               <Link
                 key={`${professional.name}-${index}`}
-                to="/professionals/wonjungjun"
+                to={`/professionals/${professional.id}`}
                 className="group flex min-w-0 flex-col overflow-hidden bg-section-alt transition-transform duration-300 hover:-translate-y-1"
               >
                 <div className="aspect-[5/6] overflow-hidden bg-[#dce4e9]">

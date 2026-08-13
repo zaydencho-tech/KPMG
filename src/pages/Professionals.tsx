@@ -1,15 +1,43 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Share2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import MobileContentsNav from "@/components/MobileContentsNav";
 import SectionIcon from "@/components/SectionIcon";
-import professionalImage from "@/assets/professional-wonjungjun-cutout-v7.png";
-import backgroundImage from "@/assets/professional-wonjungjun-bg-empty.jpg";
+import defaultProfessionalImage from "@/assets/professional-kpmg-01-upper-cutout-tight.png";
+import parkYounggeolImage from "@/assets/professional-park-younggeol-cutout-v2-tight.png";
+import minHonggilImage from "@/assets/professional-min-honggil-cutout-v2-tight.png";
+import parkJuhongImage from "@/assets/professional-park-juhong-cutout-v2-tight.png";
+import parkGyeongsangImage from "@/assets/professional-park-gyeongsang-cutout-v2-tight.png";
+import seoMuseongImage from "@/assets/professional-seo-museong-cutout-tight.png";
+import simJunboImage from "@/assets/professional-sim-junbo-cutout-tight.png";
+import yangJinhyeokImage from "@/assets/professional-yang-jinhyeok-cutout-tight.png";
+import wonJungjunImage from "@/assets/professional-won-jungjun-cutout-tight.png";
+import leeDongcheolImage from "@/assets/professional-lee-dongcheol-cutout-tight.png";
+import leeJunsangImage from "@/assets/professional-lee-junsang-cutout-tight.png";
+import limChangheeImage from "@/assets/professional-lim-changhee-cutout-tight.png";
+import hongSeokrinImage from "@/assets/professional-hong-seokrin-cutout-tight.png";
+import backgroundImage from "@/assets/professional-kpmg-skyline-bg-v4.jpg";
 
 
 const lnbItems = ["소개", "프로필", "관련 소식"];
+
+const profileSummaries = {
+  "kim-idong": { name: "김이동", title: "대표", specialty: "Deal Advisory · 매각자문", email: "idongkim@kr.kpmg.com", image: defaultProfessionalImage },
+  "park-younggeol": { name: "박영걸", title: "부대표", specialty: "Deal Advisory · 매각자문", email: "younggeolpark@kr.kpmg.com", image: parkYounggeolImage },
+  "min-honggil": { name: "민홍길", title: "전무", specialty: "Deal Advisory · 기업가치평가", email: "honggilmin@kr.kpmg.com", image: minHonggilImage },
+  "park-juhong": { name: "박주홍", title: "전무", specialty: "Deal Advisory · 인수자문", email: "juhongpark@kr.kpmg.com", image: parkJuhongImage },
+  "park-gyeongsang": { name: "박경상", title: "상무", specialty: "Deal Advisory · 투자유치", email: "gyeongsangpark@kr.kpmg.com", image: parkGyeongsangImage },
+  "seo-museong": { name: "서무성", title: "전무", specialty: "Deal Advisory · 매각자문", email: "seomuseong@kr.kpmg.com", image: seoMuseongImage },
+  "sim-junbo": { name: "심준보", title: "상무", specialty: "Deal Advisory · 기업가치평가", email: "simjunbo@kr.kpmg.com", image: simJunboImage },
+  "yang-jinhyeok": { name: "양진혁", title: "전무", specialty: "Deal Advisory · 인수자문", email: "yangjinhyeok@kr.kpmg.com", image: yangJinhyeokImage },
+  wonjungjun: { name: "원정준", title: "부대표", specialty: "Deal Advisory · 매각자문", email: "jungjunwon@kr.kpmg.com", image: wonJungjunImage },
+  "lee-dongcheol": { name: "이동철", title: "상무", specialty: "Deal Advisory · 기업가치평가", email: "leedongcheol@kr.kpmg.com", image: leeDongcheolImage },
+  "lee-junsang": { name: "이준상", title: "상무", specialty: "Deal Advisory · 인수자문", email: "leejunsang@kr.kpmg.com", image: leeJunsangImage },
+  "lim-changhee": { name: "임창희", title: "상무", specialty: "Deal Advisory · 매각자문", email: "limchanghee@kr.kpmg.com", image: limChangheeImage },
+  "hong-seokrin": { name: "홍석린", title: "부대표", specialty: "Deal Advisory · 기업가치평가", email: "hongseokrin@kr.kpmg.com", image: hongSeokrinImage },
+} as const;
 
 const expertise = ["매각자문", "인수자문", "기업가치평가", "투자유치", "Pre-IPO"];
 
@@ -34,23 +62,23 @@ const news = [
   { tag: "INTERVIEW", title: "[ 인터뷰 기사 링크 — 확인 후 기재 ]", meta: "언론사 · YYYY.MM.DD" },
 ];
 
-const ProfileDetails = ({ onShare }: { onShare: () => void }) => (
+const ProfileDetails = ({ onShare, profile }: { onShare: () => void; profile: (typeof profileSummaries)[keyof typeof profileSummaries] }) => (
   <>
     <p className="mb-4 flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#1B338A] md:text-xs">
       <SectionIcon activeIndex={0} size={14} className="text-[#1B338A]" />Our Professionals
     </p>
     <h1 className="flex flex-wrap items-baseline gap-x-3 font-serif text-[30px] font-bold leading-[1.3] text-foreground md:text-[42px]">
-      원정준
-      <span className="text-[14px] font-medium text-foreground/70 md:text-[16px]">부대표 · 본부장</span>
+      {profile.name}
+      <span className="text-[14px] font-medium text-foreground/70 md:text-[16px]">{profile.title}</span>
     </h1>
-    <p className="mt-2 text-[14px] font-bold text-[#1B338A] md:text-[16px]">Deal Advisory 5 · M&A센터장</p>
+    <p className="mt-2 text-[14px] font-bold text-[#1B338A] md:text-[16px]">{profile.specialty}</p>
 
     <div className="mt-4 flex flex-wrap items-center gap-x-8 gap-y-2 text-[13px] text-foreground/70 md:text-[14px]">
       <span>
         <span className="mr-2 font-semibold text-foreground">T</span>02-2112-[ ]
       </span>
       <span>
-        <span className="mr-2 font-semibold text-foreground">E</span>jungjunwon@kr.kpmg.com
+        <span className="mr-2 font-semibold text-foreground">E</span>{profile.email}
       </span>
     </div>
     <button
@@ -65,6 +93,8 @@ const ProfileDetails = ({ onShare }: { onShare: () => void }) => (
 );
 
 const Professionals = () => {
+  const { professionalId } = useParams();
+  const profile = profileSummaries[professionalId as keyof typeof profileSummaries] ?? profileSummaries.wonjungjun;
   const [activeSection, setActiveSection] = useState(lnbItems[0]);
 
   useEffect(() => {
@@ -96,7 +126,7 @@ const Professionals = () => {
   const handleShare = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title: "원정준 부대표 · 본부장 | 삼정KPMG M&A Center", url: window.location.href });
+        await navigator.share({ title: `${profile.name} ${profile.title} | 삼정KPMG M&A Center`, url: window.location.href });
         return;
       } catch {
         /* user cancelled */
@@ -116,25 +146,36 @@ const Professionals = () => {
               src={backgroundImage}
               alt=""
               aria-hidden="true"
-              className="absolute -top-[60px] left-0 h-[calc(100%+60px)] w-full object-cover object-top"
-              width={1920}
-              height={600}
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              width={2006}
+              height={784}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent via-70% to-[#AFBCCB] md:bg-gradient-to-r md:from-transparent md:via-white/85 md:via-35% md:to-white/95" />
-            <div className="absolute inset-0 z-[5] hidden bg-gradient-to-bl from-[#22263F]/50 via-[#22263F]/15 to-transparent md:block" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-[170px] bg-[linear-gradient(to_bottom,rgba(14,24,40,0.78)_0%,rgba(20,34,59,0.58)_36%,rgba(31,47,74,0.25)_68%,transparent_100%)] md:h-[190px]"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -inset-y-1/4 -left-[18%] h-[150%] w-[82%] bg-[radial-gradient(ellipse_at_48%_62%,rgba(25,42,68,0.58)_0%,rgba(35,55,84,0.42)_33%,rgba(55,75,103,0.18)_57%,transparent_78%)] blur-[18px]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent via-70% to-[#F2F4F7]/95 md:bg-gradient-to-r md:from-transparent md:via-white/48 md:via-45% md:to-white/68" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute hidden md:block md:-inset-y-1/2 md:-left-[35%] md:h-[200%] md:w-[170%] md:blur-[22px] md:bg-[radial-gradient(ellipse_at_57%_50%,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.76)_24%,rgba(255,255,255,0.46)_46%,transparent_74%)]"
+            />
             <img
-              src={professionalImage}
-              alt="원정준 부대표 프로필 사진"
-              className="absolute left-0 top-[44px] h-[calc(100%-44px)] w-full origin-top scale-[1.08] object-cover object-top [filter:drop-shadow(0_18px_28px_rgba(30,44,66,0.14))] -translate-x-[13%] md:top-[100px] md:h-[calc(100%-100px)] md:scale-[1.2] md:-translate-x-[24%]"
-              width={2064}
-              height={448}
+              src={profile.image}
+              alt={`${profile.name} ${profile.title} 프로필 사진`}
+              className="absolute bottom-0 left-5 h-[88%] w-auto max-w-none object-contain object-bottom [filter:drop-shadow(0_18px_28px_rgba(30,44,66,0.14))] md:left-[max(2rem,calc((100%-1400px)/2+2rem))] md:h-[86%]"
+              width={1024}
+              height={1067}
             />
           </div>
 
           <div className="container relative z-10 grid pt-[280px] pb-6 sm:pt-[320px] md:min-h-0 md:grid-cols-2 md:items-center md:py-[80px]">
             <div className="hidden md:block" />
             <div className="bg-background px-5 py-8 md:-ml-[100px] md:bg-transparent md:p-0">
-              <ProfileDetails onShare={handleShare} />
+              <ProfileDetails onShare={handleShare} profile={profile} />
             </div>
           </div>
         </section>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Download, Mail } from "lucide-react";
+import { Download, Info, Mail } from "lucide-react";
 import ResponsiveFilters from "@/components/ResponsiveFilters";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Header from "@/components/Header";
@@ -106,6 +106,9 @@ const Insights = () => {
   }, [location.state]);
   const [query, setQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const [privacyInfoOpen, setPrivacyInfoOpen] = useState(false);
+  const [privacyInfoModalOpen, setPrivacyInfoModalOpen] = useState(false);
   const tagOptions = useMemo(() => Array.from(new Set(allInsights.flatMap((item) => item.tags))).sort(), []);
   const filterInsights = (items: Insight[]) => items.filter((item) =>
     `${item.title} ${item.description} ${item.fileName} ${item.tags.join(" ")}`.toLowerCase().includes(query.toLowerCase())
@@ -226,6 +229,46 @@ const Insights = () => {
               <button type="button" className="inline-flex h-12 items-center justify-center gap-2 bg-foreground px-6 text-sm font-semibold text-background transition-colors hover:bg-foreground/90">
                 리포트 다운로드 신청<Download size={16} className="text-gold" />
               </button>
+              <div className="flex items-center gap-1.5 pt-1 text-[12px] text-foreground">
+                <label className="inline-flex cursor-pointer items-center gap-2 whitespace-nowrap">
+                  <input type="checkbox" checked={privacyAgreed} onChange={(event) => setPrivacyAgreed(event.target.checked)} className="peer sr-only" />
+                  <span className="grid h-3.5 w-3.5 place-items-center rounded-none border border-foreground/60 bg-background peer-checked:border-cta peer-checked:bg-cta">
+                    <svg viewBox="0 0 12 12" className={`h-3 w-3 text-cta-foreground ${privacyAgreed ? "block" : "hidden"}`} aria-hidden="true">
+                      <path d="M2 6.2 4.7 9 10 3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="square" strokeLinejoin="miter" />
+                    </svg>
+                  </span>
+                  <span>개인정보 수집·이용에 동의합니다.</span>
+                </label>
+                <div className="relative" onMouseEnter={() => { if (window.innerWidth >= 768) setPrivacyInfoOpen(true); }} onMouseLeave={() => setPrivacyInfoOpen(false)}>
+                  <button
+                    type="button"
+                    aria-label="개인정보 수집·이용 안내 보기"
+                    aria-expanded={privacyInfoOpen || privacyInfoModalOpen}
+                    onClick={() => {
+                      if (window.innerWidth < 768) setPrivacyInfoModalOpen(true);
+                      else setPrivacyInfoOpen((open) => !open);
+                    }}
+                    onFocus={() => { if (window.innerWidth >= 768) setPrivacyInfoOpen(true); }}
+                    onBlur={() => setPrivacyInfoOpen(false)}
+                    className="grid h-4 w-4 place-items-center text-[#1A3189] transition-colors hover:text-[#B7935B] focus:outline-none focus:ring-2 focus:ring-[#B7935B]/60"
+                  >
+                    <Info size={16} strokeWidth={2} aria-hidden="true" />
+                  </button>
+                  {privacyInfoOpen && <PrivacyCollectionInfo className="absolute bottom-full left-0 z-30 mb-3 hidden w-[min(88vw,430px)] min-[768px]:block" />}
+                </div>
+              </div>
+              {privacyInfoModalOpen && (
+                <div role="dialog" aria-modal="true" aria-labelledby="insights-privacy-modal-title" className="fixed inset-0 z-50 grid place-items-center bg-[#0E1828]/55 p-5 min-[768px]:hidden" onClick={() => setPrivacyInfoModalOpen(false)}>
+                  <div className="w-full max-w-[420px] bg-white p-5 shadow-[0_18px_50px_rgba(14,24,40,0.3)]" onClick={(event) => event.stopPropagation()}>
+                    <div className="flex items-start justify-between gap-4">
+                      <p id="insights-privacy-modal-title" className="font-serif text-[16px] font-bold text-[#1A3189]">개인정보 수집·이용 (필수)</p>
+                      <button type="button" onClick={() => setPrivacyInfoModalOpen(false)} className="-mt-1 text-[20px] leading-none text-[#1A3189]" aria-label="개인정보 안내 닫기">×</button>
+                    </div>
+                    <PrivacyCollectionInfo className="mt-4" />
+                    <button type="button" onClick={() => setPrivacyInfoModalOpen(false)} className="mt-5 w-full bg-[#1A3189] px-4 py-3 text-[13px] font-medium text-white">확인</button>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </section>
@@ -234,6 +277,25 @@ const Insights = () => {
     </div>
   );
 };
+
+const PrivacyCollectionInfo = ({ className = "" }: { className?: string }) => (
+  <div className={`border border-[#1A3189]/20 bg-white p-4 text-left text-[#222] shadow-[0_12px_30px_rgba(14,24,40,0.16)] sm:p-5 ${className}`}>
+    <p className="font-serif text-[14px] font-bold text-[#1A3189]">개인정보 수집·이용 (필수)</p>
+    <div className="mt-3 overflow-hidden border border-[#1A3189]/25">
+      <div className="grid grid-cols-[1.4fr_1fr_0.9fr] bg-[#F2F4F7] text-[10px] font-bold text-[#1A3189] sm:text-[11px]">
+        <p className="border-r border-[#1A3189]/25 p-2.5">수집·이용 목적</p>
+        <p className="border-r border-[#1A3189]/25 p-2.5">항목</p>
+        <p className="p-2.5">보유기간</p>
+      </div>
+      <div className="grid grid-cols-[1.4fr_1fr_0.9fr] text-[10px] leading-relaxed text-[#3B4252] sm:text-[11px]">
+        <p className="border-r border-t border-[#1A3189]/25 p-2.5">리포트 다운로드 신청 및 관련 안내</p>
+        <p className="border-r border-t border-[#1A3189]/25 p-2.5">이메일</p>
+        <p className="border-t border-[#1A3189]/25 p-2.5 font-semibold text-[#8C6B36]">확인 필요</p>
+      </div>
+    </div>
+    <p className="mt-3 text-[10px] leading-relaxed text-[#5C6470]">동의를 거부할 권리가 있으나, 동의하지 않을 경우 리포트 다운로드 신청이 제한될 수 있습니다.</p>
+  </div>
+);
 
 const TabNav = ({ tab, onChange }: { tab: TabKey; onChange: (t: TabKey) => void }) => {
   const scrollerRef = useRef<HTMLDivElement>(null);

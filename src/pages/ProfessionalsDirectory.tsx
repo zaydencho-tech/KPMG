@@ -6,38 +6,40 @@ import Footer from "@/components/Footer";
 import SectionIcon from "@/components/SectionIcon";
 import ResponsiveFilters from "@/components/ResponsiveFilters";
 import heroImage from "@/assets/professionals-directory-hero.png";
-import professionalImage from "@/assets/professional-wonjungjun.jpg";
-import advisorImage1 from "@/assets/professional-card-advisor-1-v2.png";
-import advisorImage2 from "@/assets/professional-card-advisor-2-v2.png";
-import advisorImage3 from "@/assets/professional-directory-advisor-01.jpg";
-import advisorImage4 from "@/assets/professional-directory-advisor-02.jpg";
-import advisorImage5 from "@/assets/professional-directory-advisor-03.jpg";
-import advisorImage6 from "@/assets/professional-directory-advisor-04.jpg";
-import advisorImage7 from "@/assets/professional-directory-advisor-05.jpg";
-import advisorImage8 from "@/assets/professional-directory-advisor-06.jpg";
-import advisorImage9 from "@/assets/professional-directory-advisor-07.jpg";
-import advisorImage10 from "@/assets/professional-directory-advisor-08.jpg";
-import advisorImage11 from "@/assets/professional-directory-advisor-09.jpg";
+import professionalImage1 from "@/assets/professional-kpmg-01.jpg";
+import professionalImage2 from "@/assets/professional-kpmg-02.jpg";
+import professionalImage3 from "@/assets/professional-kpmg-03.jpg";
+import professionalImage4 from "@/assets/professional-kpmg-04.jpg";
+import professionalImage5 from "@/assets/professional-kpmg-05.jpg";
+import seoMuseongImage from "@/assets/professional-seo-museong-card.jpg";
+import simJunboImage from "@/assets/professional-sim-junbo-card.jpg";
+import yangJinhyeokImage from "@/assets/professional-yang-jinhyeok-card.jpg";
+import wonJungjunImage from "@/assets/professional-won-jungjun-card.jpg";
+import leeDongcheolImage from "@/assets/professional-lee-dongcheol-card.jpg";
+import leeJunsangImage from "@/assets/professional-lee-junsang-card.jpg";
+import limChangheeImage from "@/assets/professional-lim-changhee-card.jpg";
+import hongSeokrinImage from "@/assets/professional-hong-seokrin-card.jpg";
 
 const memberTypeOptions = ["부대표", "전무", "상무", "이사"];
 const tagOptions = ["매각자문", "인수자문", "기업가치평가", "투자유치", "DealAdvisory"];
 
 const profiles = [
-  { name: "원정준", title: "부대표 · 본부장", category: "매각자문", image: professionalImage, position: "object-[12%_center]" },
-  { name: "000", title: "부대표", category: "기업가치평가", image: advisorImage1, position: "object-[12%_center]" },
-  { name: "000", title: "부대표", category: "인수자문", image: advisorImage2, position: "object-[12%_center]" },
-  { name: "000", title: "전무", category: "투자유치", image: advisorImage3, position: "object-[12%_center]" },
-  { name: "000", title: "상무", category: "매각자문", image: advisorImage4, position: "object-[12%_center]" },
-  { name: "000", title: "상무", category: "인수자문", image: advisorImage5, position: "object-[12%_center]" },
-  { name: "000", title: "이사", category: "기업가치평가", image: advisorImage6, position: "object-[12%_center]" },
-  { name: "000", title: "이사", category: "투자유치", image: advisorImage7, position: "object-[12%_center]" },
-  { name: "000", title: "이사", category: "매각자문", image: advisorImage8, position: "object-[12%_center]" },
-  { name: "000", title: "이사", category: "인수자문", image: advisorImage9, position: "object-[12%_center]" },
-  { name: "000", title: "이사", category: "기업가치평가", image: advisorImage10, position: "object-[12%_center]" },
-  { name: "000", title: "이사", category: "투자유치", image: advisorImage11, position: "object-[12%_center]" },
+  { id: "kim-idong", name: "김이동", title: "대표", category: "매각자문", image: professionalImage1, position: "object-[14%_center]" },
+  { id: "park-younggeol", name: "박영걸", title: "부대표", category: "매각자문", image: professionalImage5, position: "object-[14%_center]" },
+  { id: "min-honggil", name: "민홍길", title: "전무", category: "기업가치평가", image: professionalImage2, position: "object-[8%_center]" },
+  { id: "park-juhong", name: "박주홍", title: "전무", category: "인수자문", image: professionalImage3, position: "object-[14%_center]" },
+  { id: "park-gyeongsang", name: "박경상", title: "상무", category: "투자유치", image: professionalImage4, position: "object-[14%_center]" },
+  { id: "seo-museong", name: "서무성", title: "전무", category: "매각자문", image: seoMuseongImage, position: "object-[14%_center]" },
+  { id: "sim-junbo", name: "심준보", title: "상무", category: "기업가치평가", image: simJunboImage, position: "object-[14%_center]" },
+  { id: "yang-jinhyeok", name: "양진혁", title: "전무", category: "인수자문", image: yangJinhyeokImage, position: "object-[14%_center]" },
+  { id: "wonjungjun", name: "원정준", title: "부대표", category: "매각자문", image: wonJungjunImage, position: "object-[14%_center]" },
+  { id: "lee-dongcheol", name: "이동철", title: "상무", category: "기업가치평가", image: leeDongcheolImage, position: "object-[14%_center]" },
+  { id: "lee-junsang", name: "이준상", title: "상무", category: "인수자문", image: leeJunsangImage, position: "object-[14%_center]" },
+  { id: "lim-changhee", name: "임창희", title: "상무", category: "매각자문", image: limChangheeImage, position: "object-[14%_center]" },
+  { id: "hong-seokrin", name: "홍석린", title: "부대표", category: "기업가치평가", image: hongSeokrinImage, position: "object-[14%_center]" },
 ];
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 15;
 
 const ProfessionalsDirectory = () => {
   const [query, setQuery] = useState("");
@@ -102,7 +104,7 @@ const ProfessionalsDirectory = () => {
 
             <div className="mt-8 grid grid-cols-2 gap-5 sm:grid-cols-3 md:mt-10 lg:grid-cols-5">
               {visibleProfiles.map((profile, index) => (
-                <Link key={`${profile.name}-${index}`} to="/professionals/wonjungjun" className="group flex min-w-0 flex-col">
+                <Link key={`${profile.name}-${index}`} to={`/professionals/${profile.id}`} className="group flex min-w-0 flex-col">
                   <div className="relative aspect-[5/6] overflow-hidden bg-[#dce4e9]">
                     <img
                       src={profile.image}
