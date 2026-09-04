@@ -5,6 +5,7 @@ import advisoryTab2 from "@/assets/advisory-tab-2.jpg";
 import advisoryTab3 from "@/assets/advisory-tab-3.jpg";
 import advisoryTab4 from "@/assets/advisory-tab-4.jpg";
 import advisoryTab5 from "@/assets/advisory-tab-5.jpg";
+import { ADVISORY_REQUEST_EVENT } from "@/lib/advisoryRequest";
 import SectionIcon from "./SectionIcon";
 
 const advisoryImages = [advisoryTab1, advisoryTab2, advisoryTab4, advisoryTab3, advisoryTab5];
@@ -130,6 +131,17 @@ const AdvisorySection = () => {
     setPrivacyInfoModalOpen(false);
     setShowForm(true);
   };
+
+  useEffect(() => {
+    const handleExternalRequest = (event: Event) => {
+      const requestedIndex = (event as CustomEvent<{ index?: number }>).detail?.index ?? 0;
+      const safeIndex = Math.min(Math.max(requestedIndex, 0), advisoryItems.length - 1);
+      handleRequest(safeIndex);
+    };
+
+    window.addEventListener(ADVISORY_REQUEST_EVENT, handleExternalRequest);
+    return () => window.removeEventListener(ADVISORY_REQUEST_EVENT, handleExternalRequest);
+  }, []);
 
   return (
     <section

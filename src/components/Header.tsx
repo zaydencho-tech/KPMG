@@ -157,8 +157,8 @@ const Header = () => {
             );
           })}
 
-          <a
-            href="#contact"
+          <Link
+            to="/#contact"
             className={`px-4 py-1.5 border text-xs font-semibold bg-transparent transition-all duration-300 ${
               scrolled
                 ? "border-cta text-cta hover:bg-cta hover:text-primary-foreground"
@@ -166,7 +166,7 @@ const Header = () => {
             }`}
           >
             상담 요청
-          </a>
+          </Link>
 
           {/* Language selector */}
           <div className="relative -ml-4" ref={langRef}>
@@ -272,13 +272,13 @@ const Header = () => {
                 </Link>
               );
             })}
-            <a
-              href="#contact"
+            <Link
+              to="/#contact"
               className="px-5 py-2 bg-cta text-primary-foreground text-sm font-medium text-center hover:bg-cta/90 transition-all"
               onClick={() => setIsOpen(false)}
             >
               상담 요청
-            </a>
+            </Link>
           </div>
         </div>
       )}

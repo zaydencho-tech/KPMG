@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { Share2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -18,6 +18,7 @@ import leeDongcheolImage from "@/assets/professional-lee-dongcheol-cutout-tight.
 import leeJunsangImage from "@/assets/professional-lee-junsang-cutout-tight.png";
 import limChangheeImage from "@/assets/professional-lim-changhee-cutout-tight.png";
 import hongSeokrinImage from "@/assets/professional-hong-seokrin-cutout-tight.png";
+import leeJunseokImage from "@/assets/professional-lee-junseok-cutout.png";
 import backgroundImage from "@/assets/professional-kpmg-skyline-bg-v4.jpg";
 
 
@@ -37,6 +38,8 @@ const profileSummaries = {
   "lee-junsang": { name: "이준상", title: "상무", specialty: "Deal Advisory · 인수자문", email: "leejunsang@kr.kpmg.com", image: leeJunsangImage },
   "lim-changhee": { name: "임창희", title: "상무", specialty: "Deal Advisory · 매각자문", email: "limchanghee@kr.kpmg.com", image: limChangheeImage },
   "hong-seokrin": { name: "홍석린", title: "부대표", specialty: "Deal Advisory · 기업가치평가", email: "hongseokrin@kr.kpmg.com", image: hongSeokrinImage },
+  "wonjungjun-center": { name: "원정준", title: "센터장", specialty: "M&A Center · 센터 운영", email: "jungjunwon@kr.kpmg.com", image: wonJungjunImage },
+  "lee-junseok": { name: "이준석", title: "담당 파트너", specialty: "M&A Center · 센터 운영", email: "jlee115@kr.kpmg.com", image: leeJunseokImage },
 } as const;
 
 const expertise = ["매각자문", "인수자문", "기업가치평가", "투자유치", "Pre-IPO"];
@@ -94,6 +97,7 @@ const ProfileDetails = ({ onShare, profile }: { onShare: () => void; profile: (t
 
 const Professionals = () => {
   const { professionalId } = useParams();
+  const hasNoDetailPage = professionalId === "yoo-taejung" || professionalId === "yoo-seungho";
   const profile = profileSummaries[professionalId as keyof typeof profileSummaries] ?? profileSummaries.wonjungjun;
   const [activeSection, setActiveSection] = useState(lnbItems[0]);
 
@@ -134,6 +138,8 @@ const Professionals = () => {
     }
     navigator.clipboard?.writeText(window.location.href);
   };
+
+  if (hasNoDetailPage) return <Navigate to="/professionals" replace />;
 
   return (
     <div className="min-h-screen bg-background">
@@ -292,6 +298,15 @@ const Professionals = () => {
                   ))}
                 </div>
               </article>
+
+              <div className="flex justify-center pt-1">
+                <Link
+                  to="/professionals"
+                  className="inline-flex items-center gap-2 border border-foreground bg-background px-5 py-3 text-[12px] font-semibold text-foreground transition-colors hover:bg-foreground hover:text-background md:px-7 md:py-3.5 md:text-[13px]"
+                >
+                  조직도로 돌아가기
+                </Link>
+              </div>
             </div>
           </div>
         </section>

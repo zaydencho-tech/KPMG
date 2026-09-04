@@ -9,9 +9,13 @@ const MobileContentsNav = ({ items, activeSection }: MobileContentsNavProps) => 
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = scrollerRef.current?.querySelector<HTMLAnchorElement>(`[data-toc-key="${CSS.escape(activeSection)}"]`);
+    const el = scrollerRef.current?.querySelector<HTMLButtonElement>(`[data-toc-key="${CSS.escape(activeSection)}"]`);
     el?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }, [activeSection]);
+
+  const scrollToSection = (item: string) => {
+    document.getElementById(item)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div data-sticky-bottom className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur lg:hidden">
@@ -26,10 +30,12 @@ const MobileContentsNav = ({ items, activeSection }: MobileContentsNavProps) => 
           {items.map((item) => {
             const isActive = activeSection === item;
             return (
-              <a
+              <button
+                type="button"
                 key={item}
                 data-toc-key={item}
-                href={`#${item}`}
+                onClick={() => scrollToSection(item)}
+                aria-current={isActive ? "location" : undefined}
                 className={`shrink-0 inline-flex items-center whitespace-nowrap rounded-full border px-3.5 py-2 text-[12px] font-semibold transition-colors ${
                   isActive
                     ? "border-gold bg-gold text-primary-foreground"
@@ -37,7 +43,7 @@ const MobileContentsNav = ({ items, activeSection }: MobileContentsNavProps) => 
                 }`}
               >
                 {item}
-              </a>
+              </button>
             );
           })}
         </div>

@@ -44,6 +44,13 @@ const Opportunities = () => {
     return fromRoute?.key ?? "sale";
   });
 
+  useEffect(() => {
+    const stateTab = (location.state as { tab?: TabKey } | null)?.tab;
+    if (stateTab && TABS.some((item) => item.key === stateTab)) {
+      setTab(stateTab);
+    }
+  }, [location.state]);
+
   const detail: DetailState = useMemo(() => {
     if (!category || !slug) return null;
     if (category === "sale") {
@@ -335,7 +342,7 @@ const AcquisitionPanel = ({ mandates }: { mandates: AcquisitionMandate[] }) => {
               </div>
               <h3 className="mt-3 font-serif text-lg font-bold leading-snug text-foreground md:text-2xl">{m.headline}</h3>
               <p className="mt-3 text-xs leading-relaxed text-muted-foreground md:text-sm">{m.detail}</p>
-              <div className="mt-5 grid gap-1.5 md:gap-2">
+              <div className="mt-5 grid gap-3 bg-[#F6F7F9] p-4">
                 <SaleInfo label="관심 섹터" value={m.sector} />
                 <SaleInfo label="딜 규모" value={m.size} />
               </div>

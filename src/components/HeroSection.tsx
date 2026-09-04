@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Building2, Factory, Truck } from "lucide-react";
 import { getCategoryColor } from "@/lib/categoryColor";
+import { requestAdvisoryForm } from "@/lib/advisoryRequest";
 import hero1 from "@/assets/hero-1.jpg";
 import hero2 from "@/assets/hero-2.jpg";
 import hero3 from "@/assets/hero-3.jpg";
@@ -69,7 +70,11 @@ const HeroSection = () => {
           </p>
           <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4">
             <a
-              href="#contact"
+              href="#service"
+              onClick={(event) => {
+                event.preventDefault();
+                requestAdvisoryForm(0);
+              }}
               className="px-8 py-3 bg-cta text-cta-foreground text-sm tracking-wide hover:bg-cta-hover transition-colors text-center font-semibold"
             >
               매각 상담 요청

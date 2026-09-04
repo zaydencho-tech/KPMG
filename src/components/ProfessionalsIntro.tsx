@@ -1,130 +1,80 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import SectionIcon from "./SectionIcon";
-import professionalImage1 from "@/assets/professional-kpmg-01.jpg";
-import professionalImage2 from "@/assets/professional-kpmg-02.jpg";
-import professionalImage3 from "@/assets/professional-kpmg-03.jpg";
-import professionalImage4 from "@/assets/professional-kpmg-04.jpg";
-import professionalImage5 from "@/assets/professional-kpmg-05.jpg";
-import seoMuseongImage from "@/assets/professional-seo-museong-card.jpg";
-import simJunboImage from "@/assets/professional-sim-junbo-card.jpg";
-import yangJinhyeokImage from "@/assets/professional-yang-jinhyeok-card.jpg";
-import wonJungjunImage from "@/assets/professional-won-jungjun-card.jpg";
-import leeDongcheolImage from "@/assets/professional-lee-dongcheol-card.jpg";
-import leeJunsangImage from "@/assets/professional-lee-junsang-card.jpg";
-import limChangheeImage from "@/assets/professional-lim-changhee-card.jpg";
-import hongSeokrinImage from "@/assets/professional-hong-seokrin-card.jpg";
+import professionalsSymbol from "@/assets/our-professionals-deal-handshake.png";
 import teamCardBackground from "@/assets/professionals-team-card-bg-bright.png";
 
-const professionals = [
-  { id: "kim-idong", name: "김이동", title: "대표", tags: ["#매각자문", "#DealAdvisory"], image: professionalImage1, position: "object-[14%_center]" },
-  { id: "park-younggeol", name: "박영걸", title: "부대표", tags: ["#매각자문", "#DealAdvisory"], image: professionalImage5, position: "object-[14%_center]" },
-  { id: "min-honggil", name: "민홍길", title: "전무", tags: ["#기업가치평가", "#DealAdvisory"], image: professionalImage2, position: "object-[8%_center]" },
-  { id: "park-juhong", name: "박주홍", title: "전무", tags: ["#인수자문", "#DealAdvisory"], image: professionalImage3, position: "object-[14%_center]" },
-  { id: "park-gyeongsang", name: "박경상", title: "상무", tags: ["#투자유치", "#DealAdvisory"], image: professionalImage4, position: "object-[14%_center]" },
-  { id: "seo-museong", name: "서무성", title: "전무", tags: ["#매각자문", "#DealAdvisory"], image: seoMuseongImage, position: "object-[14%_center]" },
-  { id: "sim-junbo", name: "심준보", title: "상무", tags: ["#기업가치평가", "#DealAdvisory"], image: simJunboImage, position: "object-[14%_center]" },
-  { id: "yang-jinhyeok", name: "양진혁", title: "전무", tags: ["#인수자문", "#DealAdvisory"], image: yangJinhyeokImage, position: "object-[14%_center]" },
-  { id: "wonjungjun", name: "원정준", title: "부대표", tags: ["#매각자문", "#DealAdvisory"], image: wonJungjunImage, position: "object-[14%_center]" },
-  { id: "lee-dongcheol", name: "이동철", title: "상무", tags: ["#기업가치평가", "#DealAdvisory"], image: leeDongcheolImage, position: "object-[14%_center]" },
-  { id: "lee-junsang", name: "이준상", title: "상무", tags: ["#인수자문", "#DealAdvisory"], image: leeJunsangImage, position: "object-[14%_center]" },
-  { id: "lim-changhee", name: "임창희", title: "상무", tags: ["#매각자문", "#DealAdvisory"], image: limChangheeImage, position: "object-[14%_center]" },
-  { id: "hong-seokrin", name: "홍석린", title: "부대표", tags: ["#기업가치평가", "#DealAdvisory"], image: hongSeokrinImage, position: "object-[14%_center]" },
-];
-
 const ProfessionalsIntro = () => {
-  const [startIndex, setStartIndex] = useState(0);
-  const visibleProfessionals = Array.from(
-    { length: 3 },
-    (_, index) => professionals[(startIndex + index) % professionals.length],
-  );
-
-  const moveCards = (direction: -1 | 1) => {
-    setStartIndex((current) => (current + direction + professionals.length) % professionals.length);
-  };
+  const [isCtaActive, setIsCtaActive] = useState(false);
 
   return (
-    <section className="overflow-hidden bg-[#F6F7F9] py-16 md:py-20 lg:py-24">
+    <section className="bg-[#F6F7F9] py-16 md:py-20 lg:py-[120px]">
       <div className="container">
-        <div className="grid gap-9 lg:grid-cols-[minmax(220px,0.72fr)_minmax(0,2.28fr)] lg:gap-12 xl:gap-16">
-          <div className="flex flex-col justify-between lg:py-2">
-            <div>
-              <p className="mb-2 flex items-center gap-2 text-xs uppercase tracking-widest text-gold">
-                <SectionIcon activeIndex={5} size={14} className="text-gold" />
-                Our Professionals
+        <div className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-[minmax(150px,0.72fr)_minmax(0,2.1fr)_minmax(220px,0.88fr)] lg:gap-12 xl:gap-16">
+          <div className="contents lg:block lg:self-start">
+            <p className="order-1 col-span-2 mb-2 flex items-start gap-2 text-xs leading-4 uppercase tracking-widest text-gold">
+              <span className="flex h-4 flex-none items-center" aria-hidden="true">
+                <SectionIcon activeIndex={4} size={14} className="!mt-0 text-gold" />
+              </span>
+              <span>Our Professionals</span>
+            </p>
+            <div className="order-3 min-w-0">
+              <img
+                src={professionalsSymbol}
+                alt="M&A 전문가 네트워크 심볼"
+                loading="lazy"
+                width={1200}
+                height={1200}
+                className="h-16 w-16 object-cover md:h-[72px] md:w-[72px] lg:mt-9"
+              />
+              <p className="mt-6 max-w-[170px] text-xs leading-relaxed text-muted-foreground md:mt-9">
+                전략 수립부터 거래 종결까지,
+                <br />
+                각 단계에 필요한 전문 자문을
+                <br />
+                제공합니다.
               </p>
-              <h2 className="mt-5 font-serif text-[27px] font-bold leading-[1.35] text-foreground md:text-[34px] lg:text-[38px]">
-                <span className="block">국내 M&A시장을</span>
-                <span className="block">선도하는 전문가들을</span>
-                <span className="block">만나보세요</span>
-              </h2>
             </div>
-            <Link
-              to="/professionals"
-              className="mt-7 inline-flex w-fit items-center gap-2 border border-foreground/40 bg-transparent px-5 py-2.5 text-xs font-medium text-foreground transition-all duration-300 hover:border-cta hover:bg-cta hover:text-cta-foreground lg:mt-12"
-            >
-              전문가 전체 보기
-            </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-3 xl:gap-4">
-            {visibleProfessionals.map((professional, index) => (
-              <Link
-                key={`${professional.name}-${index}`}
-                to={`/professionals/${professional.id}`}
-                className="group flex min-w-0 flex-col overflow-hidden bg-section-alt transition-transform duration-300 hover:-translate-y-1"
-              >
-                <div className="aspect-[5/6] overflow-hidden bg-[#dce4e9]">
-                  <img
-                    src={professional.image}
-                    alt={`${professional.name} 프로필 사진`}
-                    loading="lazy"
-                    width={1086}
-                    height={1448}
-                    className={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] ${professional.position}`}
-                  />
-                </div>
-                <div className="h-[80px] min-h-[80px] bg-background px-3 py-3 md:px-4 md:py-2.5">
-                  <p className="flex flex-wrap items-baseline gap-x-1.5 text-[16px] font-bold text-foreground md:text-[17px]">
-                    {professional.name}
-                    <span className="text-[13px] font-semibold text-gold md:text-[14px]">{professional.title}</span>
-                  </p>
-                  <p className="mt-1 flex flex-wrap gap-x-1.5 gap-y-0.5 text-[12px] leading-relaxed text-muted-foreground md:text-[13px]">
-                    {professional.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </p>
-                </div>
-              </Link>
-            ))}
+          <div className="contents lg:flex lg:h-[252px] lg:flex-col lg:justify-between">
+            <h2 className="order-2 col-span-2 max-w-[720px] font-serif text-2xl font-bold text-foreground md:text-3xl lg:mb-4">
+              <span className={`transition-colors duration-300 ${isCtaActive ? "text-[#CCD0D8]" : "text-foreground"}`}>
+                국내 M&A시장을 선도하는 삼정KPMG M&A센터의 전문가들을 만나보세요.{" "}
+              </span>
+              <span className={`transition-colors duration-300 ${isCtaActive ? "text-[#1B1D2D]" : "text-[#CAD0D9]"}`}>
+                다양한 산업에 대한 깊은 이해와 풍부한 거래 경험을 바탕으로 고객의 성공적인 의사결정을 지원합니다.
+              </span>
+            </h2>
 
-            <div className="relative isolate col-span-1 flex min-h-[160px] flex-col justify-between overflow-hidden bg-[#0E1828] p-5 text-primary-foreground sm:min-h-0">
-              <img src={teamCardBackground} alt="" aria-hidden="true" className="absolute inset-0 -z-20 h-full w-full object-cover object-[65%_72%]" loading="lazy" width={1024} height={1792} />
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-gold">Meet our team</p>
-              <p className="mt-3 whitespace-nowrap font-serif text-[17px] font-bold leading-snug">
-                전문가를 <br className="sm:hidden" />더 만나보세요
-              </p>
-              <div className="mt-auto flex">
-                <div className="flex border border-primary-foreground/30">
-                  <button
-                    type="button"
-                    aria-label="이전 전문가 보기"
-                    onClick={() => moveCards(-1)}
-                    className="grid h-10 w-10 place-items-center border-r border-primary-foreground/30 transition-colors hover:bg-primary-foreground hover:text-[#0E1828]"
-                  >
-                    <ArrowLeft size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="다음 전문가 보기"
-                    onClick={() => moveCards(1)}
-                    className="grid h-10 w-10 place-items-center transition-colors hover:bg-primary-foreground hover:text-[#0E1828]"
-                  >
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </div>
+            <div className="order-5 col-span-2 flex items-center gap-5 lg:mt-14 lg:-translate-y-6">
+              <span className="h-px flex-1 bg-border" aria-hidden="true" />
+              <Link
+                to="/professionals"
+                onMouseEnter={() => setIsCtaActive(true)}
+                onMouseLeave={() => setIsCtaActive(false)}
+                onFocus={() => setIsCtaActive(true)}
+                onBlur={() => setIsCtaActive(false)}
+                className="inline-flex flex-none items-center border border-foreground/50 bg-transparent px-6 py-3 text-[13px] font-semibold text-foreground transition-all duration-300 hover:border-cta hover:bg-cta hover:text-cta-foreground"
+              >
+                전문가 전체 보기
+              </Link>
+            </div>
+          </div>
+
+          <div className="order-4 min-w-0 justify-self-end lg:order-none lg:self-start">
+            <p className="mb-9 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+              Meet our team
+            </p>
+            <div className="h-[180px] w-full max-w-[180px] overflow-hidden bg-[#0E1828] md:h-auto md:w-[180px] md:aspect-[180/203]">
+              <img
+                src={teamCardBackground}
+                alt="삼정KPMG M&A 전문가 회의"
+                loading="lazy"
+                width={1024}
+                height={1792}
+                className="h-full w-[125%] max-w-none -translate-x-[20%] object-cover object-[65%_72%]"
+              />
             </div>
           </div>
         </div>

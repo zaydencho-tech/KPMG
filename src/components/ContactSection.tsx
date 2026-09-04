@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { requestAdvisoryForm } from "@/lib/advisoryRequest";
 
 const ContactSection = () => {
   return (
@@ -20,6 +21,8 @@ const ContactSection = () => {
           매각·투자유치·기업인수 등 M&A 전 과정에 대해 삼정KPMG 전문가와 무료로 상담하세요.
         </p>
         <button
+          type="button"
+          onClick={() => requestAdvisoryForm(0)}
           className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-[#00338D] text-cta-foreground font-medium text-[13px] md:text-sm tracking-wide hover:bg-cta-hover transition-all duration-300"
         >
           상담 요청하러 가기

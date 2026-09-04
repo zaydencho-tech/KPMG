@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SectionIcon from "@/components/SectionIcon";
@@ -1242,15 +1243,20 @@ const Infographic = ({ type }: { type: InfographicType }) => {
 
 const MnaGuide = () => {
   const [activeSection, setActiveSection] = useState<string>(tableOfContents[0]);
+  const { hash } = useLocation();
+
+  const scrollToSection = (item: string) => {
+    document.getElementById(item)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   useEffect(() => {
-    const hash = decodeURIComponent(window.location.hash.slice(1));
-    if (!hash) return;
+    const sectionId = decodeURIComponent(hash.slice(1));
+    if (!tableOfContents.includes(sectionId)) return;
     const t = window.setTimeout(() => {
-      document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
     return () => window.clearTimeout(t);
-  }, []);
+  }, [hash]);
 
 
   useEffect(() => {
@@ -1304,17 +1310,19 @@ const MnaGuide = () => {
                 {tableOfContents.map((item) => {
                   const isActive = activeSection === item;
                   return (
-                    <a
+                    <button
+                      type="button"
                       key={item}
-                      href={`#${item}`}
-                      className={`border-l-2 px-4 py-[7px] text-[13px] transition-colors ${
+                      onClick={() => scrollToSection(item)}
+                      aria-current={isActive ? "location" : undefined}
+                      className={`w-full border-l-2 px-4 py-[7px] text-left text-[13px] transition-colors ${
                         isActive
                           ? "border-gold font-semibold text-foreground"
                           : "border-border font-medium text-muted-foreground hover:border-gold hover:text-foreground"
                       }`}
                     >
                       {item}
-                    </a>
+                    </button>
                   );
                 })}
               </nav>
